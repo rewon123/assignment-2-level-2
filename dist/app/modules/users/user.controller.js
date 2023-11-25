@@ -92,9 +92,38 @@ const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
 });
+const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.userId;
+    const updatedUserData = req.body;
+    try {
+        const result = yield user_service_1.UserServices.updateSingleUserInDB(userId, updatedUserData);
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+                error: {
+                    code: 404,
+                    description: "User not found!"
+                }
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'User updated successfully',
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+        });
+    }
+});
 exports.userController = {
     createUser,
     getAllStudents,
     getSingleStudent,
     deleteSingleUser,
+    updateSingleUser,
 };

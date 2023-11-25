@@ -11,4 +11,5 @@ router.post('/api/users', user_controller_1.userController.createUser);
 router.get('/api/users', user_controller_1.userController.getAllStudents);
 router.get('/api/users/:userId', user_controller_1.userController.getSingleStudent);
 router.delete('/api/users/:userId', user_controller_1.userController.deleteSingleUser);
+router.put('/api/users/:userId', user_controller_1.userController.updateSingleUser);
 exports.routerPath = router;

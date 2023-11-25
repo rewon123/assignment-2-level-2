@@ -27,9 +27,16 @@ const deleteSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, fun
     const result = yield user_model_1.User.deleteOne({ userId });
     return result;
 });
+const updateSingleUserInDB = (userId, updatedUserData) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findOneAndUpdate({ userId }, updatedUserData, {
+        new: true
+    });
+    return result;
+});
 exports.UserServices = {
     createUserIntoDB,
     getAllUsersFromDB,
     getSingleUserFromDB,
-    deleteSingleUserFromDB
+    deleteSingleUserFromDB,
+    updateSingleUserInDB,
 };
