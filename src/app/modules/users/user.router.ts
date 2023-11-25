@@ -12,5 +12,8 @@ router.get('/api/users', userController.getAllStudents);
 
 router.get('/api/users/:userId', userController.getSingleStudent)
 
+router.delete('/api/users/:userId', userController.deleteSingleUser)
+
+
 
 export const routerPath = router;

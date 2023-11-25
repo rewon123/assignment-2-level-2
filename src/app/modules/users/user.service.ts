@@ -14,15 +14,22 @@ const getAllUsersFromDB = async () => {
   return result;
 };
 
-const getSingleUserFromDB = async (id: string) => {
-  const result = await User.findOne({ id });
-  console.log(id, 'asdasdsad');
-  
+const getSingleUserFromDB = async (userId: number) => {
+  const result = await User.findOne({ userId });
   return result;
 };
+
+
+const deleteSingleUserFromDB = async (userId: number) => {
+  const result = await User.deleteOne({ userId });
+  return result;
+};
+
+
 
 export const UserServices = {
   createUserIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
+  deleteSingleUserFromDB
 };
