@@ -14,14 +14,12 @@ const user_service_1 = require("./user.service");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = req.body;
-        // will call service function to send this data
         const result = yield user_service_1.UserServices.createUserIntoDB(user);
         res.status(200).json({
             success: true,
             message: 'User is created successfully',
             data: result,
         });
-        // console.log(user, result)
     }
     catch (error) {
         res.status(500);
@@ -41,10 +39,9 @@ const getAllStudents = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userId = req.params.userId;
     try {
+        const userId = req.params.userId;
         const result = yield user_service_1.UserServices.getSingleUserFromDB(userId);
-        console.log(result, 'asdasdad');
         if (!result) {
             return res.status(404).json({
                 success: false,
@@ -68,8 +65,36 @@ const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
 });
+const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.userId;
+    try {
+        const result = yield user_service_1.UserServices.deleteSingleUserFromDB((userId));
+        if (result.deletedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+                error: {
+                    code: 404,
+                    description: "User not found!"
+                }
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'User deleted successfully',
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error',
+        });
+    }
+});
 exports.userController = {
     createUser,
     getAllStudents,
     getSingleStudent,
+    deleteSingleUser,
 };

@@ -15,5 +15,6 @@ router.get('/api/users/:userId', userController.getSingleStudent)
 router.delete('/api/users/:userId', userController.deleteSingleUser)
 
 
+router.put('/api/users/:userId', userController.updateSingleUser);
 
 export const routerPath = router;

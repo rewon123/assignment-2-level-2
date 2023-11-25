@@ -19,13 +19,17 @@ const getAllUsersFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.find();
     return result;
 });
-const getSingleUserFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_model_1.User.findOne({ id });
-    console.log(id, 'asdasdsad');
+const getSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.findOne({ userId });
+    return result;
+});
+const deleteSingleUserFromDB = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.deleteOne({ userId });
     return result;
 });
 exports.UserServices = {
     createUserIntoDB,
     getAllUsersFromDB,
     getSingleUserFromDB,
+    deleteSingleUserFromDB
 };

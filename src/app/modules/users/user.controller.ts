@@ -38,7 +38,7 @@ const getAllStudents = async (req: Request, res: Response) => {
 const getSingleStudent = async (req: Request, res: Response) => {
 
     try {
-        const { userId } = req.params;
+        const userId  = req.params.userId;
 
         const result = await UserServices.getSingleUserFromDB(userId);
 
@@ -70,7 +70,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     const userId = req.params.userId;
 
     try {
-        const result = await UserServices.deleteSingleUserFromDB(Number(userId));
+        const result = await UserServices.deleteSingleUserFromDB((userId));
 
         if (result.deletedCount === 0) {
             return res.status(404).json({
@@ -100,9 +100,42 @@ const deleteSingleUser = async (req: Request, res: Response) => {
 
 
 
+const updateSingleUser = async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    const updatedUserData = req.body;
+  
+    try {
+      const result = await UserServices.updateSingleUserInDB(userId, updatedUserData);
+  
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+          error: {
+            code: 404,
+            description: "User not found!"
+          }
+        });
+      }
+  
+      res.status(200).json({
+        success: true,
+        message: 'User updated successfully',
+        data: result,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Internal Server Error',
+      });
+    }
+  };
+
+
 export const userController = {
     createUser,
     getAllStudents,
     getSingleStudent,
     deleteSingleUser,
+    updateSingleUser,
 };
